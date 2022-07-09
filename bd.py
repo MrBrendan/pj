@@ -9,7 +9,7 @@ shop varchar (52),
 region varchar (52))
 CREATE SEQUENCE user_id_seq;
 ALTER TABLE user ALTER user_id SET DEFAULT NEXTVAL('user_id_seq');
-
+123
 Удалить все данные с таблицы (включая обновление инкремента):
 
 TRUNCATE TABLE alll;
