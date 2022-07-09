@@ -8,7 +8,7 @@ from selenium_stealth import stealth
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-123
+
 def page():
     global driver
     try:

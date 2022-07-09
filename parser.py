@@ -1,6 +1,6 @@
 import functions
 
-123
+
 from numpy.random import default_rng
 
 functions.start()
