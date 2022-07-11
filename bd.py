@@ -1,4 +1,5 @@
-CREATE DATABASE dbname TEMPLATE=template0 ENCODING 'UTF-8' LC_COLLATE 'ru_RU.UTF-8' LC_CTYPE 'ru_RU.UTF-8';
+import time
+"""CREATE DATABASE dbname TEMPLATE=template0 ENCODING 'UTF-8' LC_COLLATE 'ru_RU.UTF-8' LC_CTYPE 'ru_RU.UTF-8';
 CREATE TABLE alll(
 id int primary key,
 product varchar(255),
@@ -14,4 +15,6 @@ ALTER TABLE user ALTER user_id SET DEFAULT NEXTVAL('user_id_seq');
 
 TRUNCATE TABLE alll;
 ALTER SEQUENCE id_seq RESTART;
-UPDATE alll SET idd = DEFAULT;
+UPDATE alll SET idd = DEFAULT;"""
+
+
