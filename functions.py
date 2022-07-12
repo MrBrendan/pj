@@ -34,7 +34,7 @@ def driv():
 def start():
     global options
     options = ChromeOptions()
-    #options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument("--start-maximized")
     options.add_argument("--window-size=1280,1024") #полный экран окна
     options.add_argument('--disable-dev-shm-usage')
@@ -61,23 +61,27 @@ def start():
         print("Connection refused by ")
         print(ex)
 def prs():
+    global driver
     sh = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "h1")))
     reg = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "button.b-header__location-chooser")))
-    product_names = driver.find_elements(By.CLASS_NAME,'b-offer__description')
-    prices = driver.find_elements(By.CLASS_NAME,"b-offer__price-new")
-    sales = driver.find_elements(By.CLASS_NAME,"b-offer__badge")
-    dates = driver.find_elements(By.CLASS_NAME,"b-offer__dates")
-    with connection.cursor() as cursor:
-        s = tuple()
-        for n in range(0,len(product_names)-1):
-            insert_script = "INSERT INTO alll (product, price, sale, date, shop, region) VALUES (%s,%s,%s,%s,%s,%s)"
-            s = (product_names[n].text, prices[n].text, sales[n].text, dates[n].text, reg.text, sh.text)
-            cursor.execute(insert_script, s)
-            if n==len(product_names)-1:
-                continue
-            else:
-                print('Loaded '+(str(n))+" of "+str(len(product_names)-1)+' goods', end="\r") #процесс парсинга с возвратом каретки
+    h = driver.find_element(By.XPATH, "//a/div[@class = 'b-button__content']")
+    print(h.text)
+    def body():
+        product_names = WebDriverWait(driver, 10).until(EC.visibility_of_all_elements_located((By.CLASS_NAME,'b-offer__description')))
+        prices = driver.find_elements(By.CLASS_NAME,"b-offer__price-new")
+        sales = driver.find_elements(By.CLASS_NAME,"b-offer__badge")
+        dates = driver.find_elements(By.CLASS_NAME,"b-offer__dates")
+        with connection.cursor() as cursor:
+            for n in range(0,len(product_names)-1):
+                insert_script = "INSERT INTO alll (product, price, sale, date, shop, region) VALUES (%s,%s,%s,%s,%s,%s)"
+                s = (product_names[n].text, prices[n].text, sales[n].text, dates[n].text, reg.text, sh.text)
+                cursor.execute(insert_script, s)
+                if n==len(product_names)-1:
+                    continue
+                else:
+                    print('Loaded '+(str(n))+" of "+str(len(product_names)-1)+' goods', end="\r") #процесс парсинга с возвратом каретки
+    body()
 def pokazhi():
     with connection.cursor() as cursor:
         cursor.execute('SELECT * FROM alll')
