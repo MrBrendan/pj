@@ -65,8 +65,9 @@ def prs():
     sh = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "h1")))
     reg = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "button.b-header__location-chooser")))
-    h = driver.find_element(By.XPATH, "//a/div[@class = 'b-button__content']")
-    print(h.text)
+    pages = driver.find_elements(By.XPATH, "//div[@class = 'b-pagination__pages']//a/div[@class = 'b-button__content']")
+    for page in pages:
+        print(page.text)
     def body():
         product_names = WebDriverWait(driver, 10).until(EC.visibility_of_all_elements_located((By.CLASS_NAME,'b-offer__description')))
         prices = driver.find_elements(By.CLASS_NAME,"b-offer__price-new")
@@ -82,6 +83,7 @@ def prs():
                 else:
                     print('Loaded '+(str(n))+" of "+str(len(product_names)-1)+' goods', end="\r") #процесс парсинга с возвратом каретки
     body()
+    #driver.current_url
 def pokazhi():
     with connection.cursor() as cursor:
         cursor.execute('SELECT * FROM alll')

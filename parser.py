@@ -2,12 +2,13 @@ import functions,time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from config import url
 from numpy.random import default_rng
 
 functions.start()
 functions.page()
 try:
-    functions.driv().get('https://edadeal.ru/')
+    functions.driv().get(url)
     print('Connected site')
 except Exception as ex:
     print("Connection refused by ")
