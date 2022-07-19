@@ -16,5 +16,3 @@ ALTER TABLE user ALTER user_id SET DEFAULT NEXTVAL('user_id_seq');
 TRUNCATE TABLE alll;
 ALTER SEQUENCE id_seq RESTART;
 UPDATE alll SET idd = DEFAULT;"""
-
-
