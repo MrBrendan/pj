@@ -1,8 +1,4 @@
-import random
-from main import host, user, password, db_name, url
-import time
-
-class prs(object):
+def prs():
     from selenium.webdriver.support.ui import WebDriverWait
     from selenium.webdriver.support import expected_conditions as EC
     from selenium.webdriver.common.by import By
@@ -14,7 +10,6 @@ class prs(object):
     for region in regions:
         print(str(region.text), end='\n')
     x = str(input("===> Укажите регион: "))
-    # driver.find_elements(By.CLASS_NAME,"b-root__location-name")
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, "//*[contains(text(), '" + x + "')]"))).click()
     WebDriverWait(driver, 10).until(
@@ -34,7 +29,8 @@ class prs(object):
     prices = driver.find_elements(By.CLASS_NAME,"b-offer__price-new")
     sales = driver.find_elements(By.CLASS_NAME,"b-offer__badge")
     dates = driver.find_elements(By.CLASS_NAME,"b-offer__dates")
-    class conn (prs):
+    def conn ():
+        import time
         with connection.cursor() as cursor:
             for n in range(0,len(product_names)-1):
                 insert_script = "INSERT INTO alll (product, price, sale, date, shop, region) VALUES (%s,%s,%s,%s,%s,%s)"
@@ -47,7 +43,8 @@ class prs(object):
             connection.commit()
             time.sleep(1)
 class pags(object):  # создаю класс для пересчёта страниц
-    pages = prs.pages
+    import random
+    #pages
     was = [1]
     @classmethod
     def url(cls):

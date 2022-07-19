@@ -5,6 +5,7 @@ except:
     pass
 from selenium.webdriver import Chrome
 from selenium.webdriver import ChromeOptions
+from selenium.webdriver.chrome.service import Service
 options = ChromeOptions()
 #options.add_argument("--headless")
 options.add_argument("--start-maximized")
@@ -22,6 +23,7 @@ options.add_argument("--disable-blink-features")
 #driver.execute_script("Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3, 4, 5]})") #изменяем свойство plugins
 def connect_db():
     import psycopg2
+    from cnf import host, user, password, db_name
     try:
         connection = psycopg2.connect(  # подключаемся к базе (объект класса pymysql с методом connect)
             host=host,
@@ -34,7 +36,9 @@ def connect_db():
         print("Connection refused by ")
         print(ex)
 connect_db()
-driver = Chrome(executable_path=r"C:\Users\pirat\Desktop\111\chromedriver.exe", options=options)
+from cnf import path_driver
+s=Service(path_driver)
+driver = Chrome(service=s, options=options)
 from fake_useragent import UserAgent
 ua = UserAgent()
 userAgent = ua.random
@@ -51,8 +55,10 @@ stealth(driver,
         )
 driver.set_page_load_timeout(30)
 try:
+    from cnf import url
     driver.get(url)
     print('Connected site')
 except Exception as ex:
     print("Connection refused by ")
     print(ex)
+from functions import prs
